@@ -1,70 +1,350 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leo Pontes | Cloud & DevOps</title>
-
+  <meta name="description" content="Portfólio de Leo Pontes com projetos práticos em AWS, Cloud Computing e DevOps.">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial;
-      background: #0f172a;
-      color: white;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     header {
-      background: #1e293b;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.85);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 22px;
       font-weight: bold;
-      animation: fadeIn 2s;
+      color: #ffffff;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      color: #cbd5e1;
+      font-size: 15px;
+      transition: color 0.3s;
+    }
+
+    .menu a:hover {
+      color: #ffffff;
     }
 
     .hero {
-      text-align: center;
-      padding: 80px 20px;
-      animation: fadeIn 2s;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.14);
+      color: #93c5fd;
+      font-size: 14px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      animation: fadeIn 1s ease;
     }
 
     .hero h1 {
-      font-size: 48px;
-      animation: slideUp 1.5s ease;
+      font-size: 56px;
+      line-height: 1.05;
+      margin-bottom: 18px;
+      animation: slideUp 1s ease;
+    }
+
+    .hero h1 span {
+      color: #60a5fa;
     }
 
     .hero p {
-      font-size: 20px;
-      color: #cbd5f5;
+      font-size: 19px;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin-bottom: 28px;
+      animation: fadeIn 1.4s ease;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: #94a3b8;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .btn, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
     }
 
     .btn {
-      margin-top: 20px;
-      display: inline-block;
-      padding: 12px 25px;
       background: #25D366;
       color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.25);
     }
 
     .btn:hover {
-      transform: scale(1.1);
+      transform: translateY(-3px) scale(1.02);
       background: #1ebe5d;
     }
 
-    .section {
-      padding: 50px;
+    .btn-secondary {
+      background: #2563eb;
+      color: white;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: #1d4ed8;
+    }
+
+    .hero-card {
+      background: rgba(30, 41, 59, 0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      animation: fadeIn 1.6s ease;
+    }
+
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 20px;
+      border: 4px solid #25D366;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .profile-name {
       text-align: center;
-      animation: fadeIn 2s;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .profile-role {
+      text-align: center;
+      color: #93c5fd;
+      margin-bottom: 18px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      background: rgba(15, 23, 42, 0.75);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      color: #ffffff;
+    }
+
+    .stat span {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      font-size: 38px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #94a3b8;
+      max-width: 750px;
+      margin: 0 auto 45px;
+      font-size: 17px;
+    }
+
+    .about-box {
+      background: rgba(30, 41, 59, 0.72);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.2);
+    }
+
+    .about-box p {
+      color: #cbd5e1;
+      font-size: 17px;
+    }
+
+    .skills-grid, .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.72);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.18);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(96,165,250,0.4);
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+
+    .badge-list {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.14);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #bfdbfe;
+      font-size: 13px;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .project-label {
+      font-size: 13px;
+      color: #93c5fd;
+      background: rgba(37, 99, 235, 0.15);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .highlight {
+      border: 1px solid rgba(37, 211, 102, 0.25);
+      box-shadow: 0 18px 35px rgba(37, 211, 102, 0.08);
+    }
+
+    .cta-box {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(37,99,235,0.20), rgba(37,211,102,0.16));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px 24px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+    }
+
+    .cta-box h2 {
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      color: #cbd5e1;
+      font-size: 17px;
+      margin-bottom: 26px;
     }
 
     footer {
-      background: #1e293b;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(15, 23, 42, 0.95);
       text-align: center;
-      padding: 20px;
-      margin-top: 50px;
+      padding: 28px 16px;
+      color: #94a3b8;
     }
 
     @keyframes fadeIn {
@@ -76,54 +356,241 @@
       from { transform: translateY(50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .section-title {
+        font-size: 30px;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .menu {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
-
 <body>
 
 <header>
-  🚀 Leo Pontes | Cloud & DevOps
+  <div class="container nav">
+    <div class="logo">🚀 Leo Pontes</div>
+    <nav class="menu">
+      <a href="#sobre">Sobre</a>
+      <a href="#skills">Tecnologias</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
 </header>
 
-<div class="hero">
-  <h1>Construindo soluções na AWS</h1>
-  <p>Projetos práticos com foco em Cloud Computing e DevOps</p>
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="tag">Portfólio em evolução • Cloud & DevOps</div>
+      <h1>Construindo projetos reais com <span>AWS</span>, Linux e infraestrutura moderna</h1>
+      <p>
+        Em transição para Cloud Computing e DevOps, com foco em prática real, deploy,
+        hospedagem, servidores Linux, versionamento e soluções eficientes em nuvem.
+      </p>
+      <div class="hero-sub">
+        Desenvolvendo projetos com mentalidade profissional, foco em aprendizado contínuo e aplicação prática.
+      </div>
 
-  <a class="btn" href="https://wa.me/5521970857831" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="vertical-align: middle; margin-right: 8px;">
-    Fale comigo no WhatsApp
-  </a>
-</div>
+      <div class="buttons">
+        <a class="btn" href="https://wa.me/5521970857831" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="vertical-align: middle;">
+          WhatsApp
+        </a>
 
-<div class="section">
-  <h2>Sobre mim</h2>
-  <p>
-    Profissional em transição para Cloud Computing, desenvolvendo projetos práticos utilizando AWS.
-    Experiência com criação de infraestrutura, deploy de aplicações e configuração de servidores.
-  </p>
-</div>
+        <a class="btn-secondary" href="projetos.html">
+          🚀 Ver Projetos
+        </a>
+      </div>
 
-<div class="section">
-  <h2>Projetos</h2>
-  <p>🚀 Site estático hospedado no S3</p>
-  <p>🖥️ Servidor EC2 com Nginx configurado manualmente</p>
-  <p>🔐 Configuração de acesso público e regras de segurança</p>
-</div>
+      <div class="badge-list">
+        <span class="badge">AWS S3</span>
+        <span class="badge">AWS EC2</span>
+        <span class="badge">Linux</span>
+        <span class="badge">Nginx</span>
+        <span class="badge">GitHub</span>
+        <span class="badge">HTML & CSS</span>
+      </div>
+    </div>
 
-<div class="section">
-  <h2>Tecnologias</h2>
-  <p>AWS (EC2, S3), Linux, Nginx, HTML, CSS</p>
-</div>
+    <div class="hero-card">
+      <img src="foto.jpg" alt="Foto de Leo Pontes" class="profile-img">
+      <div class="profile-name">Leo Pontes</div>
+      <div class="profile-role">Cloud & DevOps em construção</div>
+      <p style="text-align:center; color:#cbd5e1;">
+        Portfólio focado em projetos práticos com infraestrutura em nuvem, hospedagem e boas práticas de deploy.
+      </p>
 
-<div class="section">
-  <h2>GitHub</h2>
-  <a class="btn" href="https://github.com/SEUUSUARIO" target="_blank">
-    Ver meus projetos no GitHub
-  </a>
-</div>
+      <div class="mini-stats">
+        <div class="stat">
+          <strong>2+</strong>
+          <span>Projetos práticos</span>
+        </div>
+        <div class="stat">
+          <strong>AWS</strong>
+          <span>Ambiente principal</span>
+        </div>
+        <div class="stat">
+          <strong>S3</strong>
+          <span>Hosting estático</span>
+        </div>
+        <div class="stat">
+          <strong>EC2</strong>
+          <span>Servidor Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container">
+    <h2 class="section-title">Sobre mim</h2>
+    <p class="section-subtitle">
+      Uma base sólida de prática real vale mais do que só teoria. Este portfólio mostra exatamente isso.
+    </p>
+
+    <div class="about-box">
+      <p>
+        Sou um profissional em transição para a área de Cloud Computing e DevOps, construindo
+        projetos práticos com AWS para desenvolver experiência real com hospedagem, infraestrutura,
+        servidores Linux, deploy e versionamento.
+        <br><br>
+        Meu foco é evoluir com consistência, criando soluções que mostrem aprendizado aplicado
+        e visão profissional de arquitetura, custo e boas práticas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Tecnologias & Competências</h2>
+    <p class="section-subtitle">
+      Ferramentas e conhecimentos que já venho colocando em prática nos projetos.
+    </p>
+
+    <div class="skills-grid">
+      <div class="card">
+        <h3>☁️ AWS</h3>
+        <p>Uso de serviços como S3 e EC2 para hospedagem, prática de infraestrutura e entendimento de cloud na vida real.</p>
+      </div>
+
+      <div class="card">
+        <h3>🖥️ Linux & Nginx</h3>
+        <p>Configuração básica de servidor Linux, acesso remoto, instalação de Nginx e publicação de site em ambiente real.</p>
+      </div>
+
+      <div class="card">
+        <h3>📦 GitHub & Deploy</h3>
+        <p>Versionamento de projetos, publicação com GitHub Pages e organização de portfólio técnico online.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projetos">
+  <div class="container">
+    <h2 class="section-title">Projetos em destaque</h2>
+    <p class="section-subtitle">
+      Projetos simples, mas estratégicos: mostram execução, troubleshooting e tomada de decisão.
+    </p>
+
+    <div class="projects-grid">
+      <div class="card highlight">
+        <div class="project-top">
+          <h3>Site estático na AWS S3</h3>
+          <span class="project-label">Cloud Hosting</span>
+        </div>
+        <p>
+          Criação e publicação de site estático em bucket S3, com configuração de acesso público,
+          organização de arquivos e hospedagem enxuta com foco em custo baixo.
+        </p>
+        <div class="badge-list">
+          <span class="badge">AWS S3</span>
+          <span class="badge">Deploy</span>
+          <span class="badge">Static Website</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="project-top">
+          <h3>Servidor EC2 com Nginx</h3>
+          <span class="project-label">Infraestrutura</span>
+        </div>
+        <p>
+          Provisionamento de instância EC2, configuração de regras de acesso, conexão ao terminal,
+          instalação do Nginx e publicação manual de site em servidor Linux.
+        </p>
+        <div class="badge-list">
+          <span class="badge">AWS EC2</span>
+          <span class="badge">Linux</span>
+          <span class="badge">Nginx</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="project-top">
+          <h3>Portfólio com GitHub Pages</h3>
+          <span class="project-label">Versionamento</span>
+        </div>
+        <p>
+          Publicação do portfólio com GitHub Pages, uso de repositório público e organização do projeto
+          para apresentação profissional e evolução contínua.
+        </p>
+        <div class="badge-list">
+          <span class="badge">GitHub</span>
+          <span class="badge">Pages</span>
+          <span class="badge">Portfolio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Vamos conversar?</h2>
+      <p>
+        Estou construindo minha trajetória em Cloud & DevOps e aberto a conexões, networking
+        e oportunidades para mostrar meu trabalho.
+      </p>
+
+      <div class="buttons" style="justify-content:center;">
+        <a class="btn" href="https://wa.me/5521970857831" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="vertical-align: middle;">
+          Falar no WhatsApp
+        </a>
+
+        <a class="btn-secondary" href="https://github.com/leopontesbusiness" target="_blank">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
-  © 2026 Leo Pontes
+  © 2026 Leo Pontes • Cloud & DevOps Portfolio
 </footer>
 
 </body>
